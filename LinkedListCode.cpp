@@ -50,7 +50,7 @@ int lllength(Node *head){
 }
 
 // Print ith node of LL;
-void LLPrintith(Node *head, int index,int length){
+void llPrintith(Node *head, int index,int length){
     if(index<0 || index>length){
         cout<<"-1";
         return;
@@ -71,7 +71,7 @@ void LLPrintith(Node *head, int index,int length){
 
 //Update value at ith position
 
-void LLUpdateith(Node *head, int index,int value,int length){
+void llUpdateith(Node *head, int index,int value,int length){
     if(index<0 || index>length){
         cout<<"-1";
         return;
@@ -93,21 +93,42 @@ void LLUpdateith(Node *head, int index,int value,int length){
 
 // Insert value at ith position
 
-void LLInsertith(Node *head, int index,int value,int length){
+void llInsertith(Node *head, int index,int value,int length){
     if(index<0 || index>length){
         cout<<"-1";
         return;
     }
-    //  4  8   9   8   6    11 
+    
     int start = 0;
     Node *temp = head;
     while(temp){
         if(start == index-1){
-            Node *bkp = temp->next;
-            Node *newnode = new Node(value);
-            temp->next = newnode;
-            newnode->next = bkp;
+            Node *bkp = temp->next; //Holds the address of the next node
+            Node *newnode = new Node(value); //Creates new node to be inserted
+            temp->next = newnode; //connection between newnode and the previous node
+            newnode->next = bkp; //connection between newnode and the next node
 
+            return;
+        }
+        start++;
+        temp = temp->next;
+    }
+    cout<<"-1"<<endl;
+}
+
+// Delete value at ith position
+
+void llDelIth(Node *head, int index,int length){
+    if(index<0 || index>length){
+        cout<<"Error:Index out of range"<<endl;
+        return;
+    }
+    
+    int start = 0;
+    Node *temp = head;
+    while(temp){
+        if(start == index-1){
+            temp->next = temp->next->next;
             return;
         }
         start++;
@@ -123,7 +144,9 @@ int main(){
     Node *head = llinput();
     llprint(head);
     int length = lllength(head);
-    LLInsertith(head,3,8,length);
+    llInsertith(head,3,8,length);
+    llprint(head);
+    llDelIth(head,3,length);
     llprint(head);
     
 
