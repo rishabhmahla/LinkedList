@@ -39,19 +39,40 @@ void llprint(Node *head){
 }
 
 // Length of linked list
-void lllength(Node *head){
+int lllength(Node *head){
     int len = 0;
     Node *temp = head;
     while(temp != NULL){
         len++;
         temp = temp->next;
     }
-    cout<<"Length of LL is "<<len<<endl;
+    return len;
 }
 
 // Print ith node of LL;
-void LLPrintith(Node *head, int index){
-    if(index<0){
+void LLPrintith(Node *head, int index,int length){
+    if(index<0 || index>length){
+        cout<<"-1";
+        return;
+    }
+
+    int start = 0;
+    Node *temp = head;
+    while(temp){
+        if(start == index){
+            cout<<"Value at index "<<index<<" is "<<temp->data<<endl;
+            return;
+        }
+        start++;
+        temp = temp->next;
+    }
+    cout<<"-1"<<endl;
+}
+
+//Update value at ith position
+
+void LLUpdateith(Node *head, int index,int value,int length){
+    if(index<0 || index>length){
         cout<<"-1";
         return;
     }
@@ -60,7 +81,33 @@ void LLPrintith(Node *head, int index){
     Node *temp = head;
     while(temp){
         if(start == index){
-            cout<<"Value at index "<<index<<" is "<<temp->data<<endl;
+            temp->data=value;
+
+            return;
+        }
+        start++;
+        temp = temp->next;
+    }
+    cout<<"-1"<<endl;
+}
+
+// Insert value at ith position
+
+void LLInsertith(Node *head, int index,int value,int length){
+    if(index<0 || index>length){
+        cout<<"-1";
+        return;
+    }
+    //  4  8   9   8   6    11 
+    int start = 0;
+    Node *temp = head;
+    while(temp){
+        if(start == index-1){
+            Node *bkp = temp->next;
+            Node *newnode = new Node(value);
+            temp->next = newnode;
+            newnode->next = bkp;
+
             return;
         }
         start++;
@@ -75,8 +122,10 @@ int main(){
     
     Node *head = llinput();
     llprint(head);
-    lllength(head);
-    LLPrintith(head,9);
+    int length = lllength(head);
+    LLInsertith(head,3,8,length);
+    llprint(head);
+    
 
 
 }
