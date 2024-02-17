@@ -35,6 +35,38 @@ void llprint(Node *head){
         cout<<temp->data<<" ";
         temp = temp->next;
     }
+    cout<<endl;
+}
+
+// Length of linked list
+void lllength(Node *head){
+    int len = 0;
+    Node *temp = head;
+    while(temp != NULL){
+        len++;
+        temp = temp->next;
+    }
+    cout<<"Length of LL is "<<len<<endl;
+}
+
+// Print ith node of LL;
+void LLPrintith(Node *head, int index){
+    if(index<0){
+        cout<<"-1";
+        return;
+    }
+    
+    int start = 0;
+    Node *temp = head;
+    while(temp){
+        if(start == index){
+            cout<<"Value at index "<<index<<" is "<<temp->data<<endl;
+            return;
+        }
+        start++;
+        temp = temp->next;
+    }
+    cout<<"-1"<<endl;
 }
 
 // Driver code
@@ -43,6 +75,8 @@ int main(){
     
     Node *head = llinput();
     llprint(head);
+    lllength(head);
+    LLPrintith(head,9);
 
 
 }
